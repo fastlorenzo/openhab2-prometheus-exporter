@@ -67,23 +67,23 @@ def print_metrics(metrics, type, timestamp):
             statusDetail = metric['statusInfo']['statusDetail']
             value = 6
 
-            if metric['status'].upper() == 'ONLINE':
+            if status is None or status == 'NULL':
+                value = 6
+
+            if status.upper() == 'ONLINE':
                 value = 0
-            elif metric['status'].upper() == 'OFFLINE':
+            elif status.upper() == 'OFFLINE':
                 value = 1
-            elif metric['status'].upper() == 'UNINITIALIZED':
+            elif status.upper() == 'UNINITIALIZED':
                 value = 2
-            elif metric['status'].upper() == 'INITIALIZING':
+            elif status.upper() == 'INITIALIZING':
                 value = 3
-            elif metric['status'].upper() == 'REMOVING':
+            elif status.upper() == 'REMOVING':
                 value = 4
-            elif metric['status'].upper() == 'REMOVED':
+            elif status.upper() == 'REMOVED':
                 value = 5
             else:
                 value = 6
-
-            if status is None or status == 'NULL':
-                continue
 
             res = res + metric_name + '{label="' + label + '", statusDetail="' + statusDetail + '", uid="' + uid + '", status="' + status + '"} ' + '{} {}\n'.format(value, timestamp)
 
